@@ -59,10 +59,10 @@ resource vsphere_virtual_machine "dns" {
         authorized_key = var.authorized_key
         network_config = templatefile("${path.module}/cloudinit/network-config.yaml.tpl", {
           network_config_content_base64 = base64encode(templatefile("${path.module}/cloudinit/network-config-content.yaml.tpl", {
-            dns     = "${var.hub_network}.1"
+            dns     = "${var.hub_network}.3"
             gateway = "${var.hub_network}.254"
             netmask = var.hub_netmask
-            network = "${var.hub_network}.1"
+            network = "${var.hub_network}.3"
           }))
         })
       }))
