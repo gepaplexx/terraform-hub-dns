@@ -1,11 +1,3 @@
-/*resource "vsphere_host_port_group" "pg" {
-  count               = "${length(var.vmware_esxi_hosts)}"
-  name                = "${var.hub_network_name}"
-  host_system_id      = "${data.vsphere_host.host[count.index].id}"
-  virtual_switch_name = "${var.hub_vswitch}"
-  vlan_id             = "${var.hub_vlan_id}"
-}*/
-
 resource "vsphere_folder" "folder" {
   path = "GP/${var.hub_network_name}"
   type = "vm"
@@ -59,10 +51,10 @@ resource vsphere_virtual_machine "dns" {
         authorized_key = var.authorized_key
         network_config = templatefile("${path.module}/cloudinit/network-config.yaml.tpl", {
           network_config_content_base64 = base64encode(templatefile("${path.module}/cloudinit/network-config-content.yaml.tpl", {
-            dns     = "${var.hub_network}.35" # TODO only for testing
+            dns     = "${var.hub_network}.30"
             gateway = "${var.hub_network}.254"
             netmask = var.hub_netmask
-            network = "${var.hub_network}.35" # TODO only for testing
+            network = "${var.hub_network}.30"
           }))
         })
       }))
